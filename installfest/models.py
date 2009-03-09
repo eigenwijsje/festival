@@ -66,9 +66,9 @@ class Event(models.Model):
     def get_absolute_url(self):
         return ('event-detail', [self.slug])
 
-    @property
     def is_past(self):
         return datetime.now()>self.scheduled
+    is_past.short_description = _('is past')
 
 class Site(models.Model):
     event = models.ForeignKey(Event, related_name='sites',
@@ -94,16 +94,16 @@ class Site(models.Model):
         return ('site-detail', None,
             {'event_slug': self.event.slug, 'site_slug': self.slug})
 
-    @property
     def is_full(self):
         if self.max_capacity==0:
             return False
         
         return self.registrant_set.count()>=self.max_capacity
+    is_full.short_description = _('is full')
 
-    @property
     def is_past(self):
         return datetime.now()>self.scheduled
+    is_past.short_description = _('is past')
 
 class Registrant(models.Model):
     event = models.ForeignKey(Event, related_name='registrants',
