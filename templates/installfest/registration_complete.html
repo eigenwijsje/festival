@@ -1,0 +1,30 @@
+{% extends "installfest/base.html" %}
+
+{% block title %}Registro completo{% endblock %}
+
+{% block breadcrumb %}
+<ul>
+    <li class="first"><a href="/">Inicio</a>
+        <ul>
+            <li><a href="{% url event-list %}">Festivales de instalación</a>
+                <ul>
+                    <li><a href="{% url event-detail site.event.slug %}">{{ site.event.name }}</a>
+                        <ul>
+                            <li><a href="{% url site-detail site.event.slug,site.slug %}">{{ site.name }}</a></li>
+                        <ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+</ul>
+{% endblock %}
+
+{% block main-content %}
+<h2>Registro completo</h2>
+
+<p>
+Gracias por registrarte para el festival de instalación {{ event.name }} el {{ event.scheduled|date:"l, j F Y" }}.
+
+</p>
+{% endblock %}

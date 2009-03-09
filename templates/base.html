@@ -1,0 +1,26 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+    
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="/sitemedia/blueprint/screen.css" type="text/css" media="screen, projection">
+    <link rel="stylesheet" href="/sitemedia/blueprint/print.css" type="text/css" media="print"> 
+    <!--[if IE]><link rel="stylesheet" href="/sitemedia/blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
+    <link rel="stylesheet" type="text/css" href="/sitemedia/styles/festival.css" />
+</head>
+
+<body{% block body-id %} id="inicio"{% endblock %}>
+    
+<div class="container">
+    <div id="breadcrumb" class="span-19 prepend-3 append-2 small last bottom">
+        {% block breadcrumb %}{% endblock %}
+    </div>
+
+    <div id="body" class="span-19 prepend-3 append-2 last">
+        {% block main-content %}{% endblock %}
+    </div>
+</div>
+</body>
+
+</html>

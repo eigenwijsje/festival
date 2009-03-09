@@ -1,0 +1,33 @@
+{% extends "installfest/base.html" %}
+
+{% block title %}Festivales de Instalación{% endblock %}
+
+{% block breadcrumb %}
+<ul>
+    <li class="first"><a href="/">Inicio</a>
+        <ul>
+            <li>Festivales de instalación
+            </li>
+        </ul>
+    </li>
+</ul>
+{% endblock %}
+
+{% block main-content %}
+<h2>Festivales de Instalación</h2>
+
+{% for event in event_list %}
+<h3><a href="{{event.get_absolute_url}}">{{ event.name }}</a></h3>
+<h4>{{ event.scheduled|date:"j F Y" }}</h4>
+<p>
+{{ event.description|safe }}
+
+<h4>Sedes</h4>
+
+<ul>
+    {% for site in event.sites.all %}
+    <li><a href="{{ site.get_absolute_url }}">{{ site.name }}</a></li>
+    {% endfor %}
+</ul>
+{% endfor %}
+{% endblock %}

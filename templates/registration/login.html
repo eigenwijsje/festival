@@ -1,0 +1,25 @@
+{% extends "registration/base.html" %}
+
+{% block title %}Identificarse{% endblock %}
+
+{% block main-content %}
+<h2>Identificarse</h2>
+
+<form action=".?next={{ next|default:"/" }}" method="POST">
+    <p>
+    <label for="id_username">Nombre de usuario</label><br>
+    {% if form.username.errors %} 
+    <div class="error">{{ form.username.errors|join:", " }}</div>
+    {% endif %}
+    {{ form.username }}
+    </p>
+    <p>
+    <label for="id_password">Contraseña</label><br>
+    {% if form.password.errors %} 
+    <div class="error">{{ form.password.errors|join:", " }}</div>
+    {% endif %}
+    {{ form.password }}
+    </p>
+    <p> <input type="submit" value="indentificarse"></p>
+</form>
+{% endblock %}

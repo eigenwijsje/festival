@@ -1,0 +1,38 @@
+{% extends "installfest/base.html" %}
+
+{% block title %}{{ site.name }} | Registro {% endblock %}
+
+{% block breadcrumb %}
+<ul>
+    <li class="first"><a href="/">Inicio</a>
+        <ul>
+            <li><a href="{% url event-list %}">Festivales de instalación</a>
+                <ul>
+                    <li><a href="{% url event-detail site.event.slug %}">{{ site.event.name }}</a>
+                        <ul>
+                            <li><a href="{% url site-detail site.event.slug,site.slug %}">{{ site.name }}</a>
+                            </li>
+                        <ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+</ul>
+{% endblock %}
+
+{% block main-content %}
+{% if not site.is_full and not site.is_past %}
+<h2>Registro</h2>
+
+<p>
+<form action="." method="POST">
+    <table>
+        {{ form.as_table }}
+    </table>
+    <p> <input type="submit" value="registrarse"> </p>
+</form>
+    {% else %}
+    <p> El registro se ha cerrado </p>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends "installfest/base.html" %}
+
+{% block title %}{{ site.name }}{% endblock %}
+
+{% block breadcrumb %}
+<ul>
+    <li class="first"><a href="/">Inicio</a>
+        <ul>
+            <li><a href="{% url event-list %}">Festivales de instalación</a>
+                <ul>
+                    <li><a href="{% url event-detail site.event.slug %}">{{ site.event.name }}</a>
+                        <ul>
+                            <li>{{ site.name }}</li>
+                        <ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+</ul>
+{% endblock %}
+
+{% block main-content %}
+<h2>{{ site.event.name }}</h2>
+<h3>{{ site.name }}</h3>
+<h4>{{ site.scheduled|date:"l, j F Y, H:i" }}-{{ site.finished|time:"H:i" }}</h4>
+
+{{ site.description|safe }}
+
+{% if not site.is_past %}
+    {% ifequal site.max_capacity 0 %}
+    <p> La sede no tiene un límite de plazas. </p>
+    {% else %}
+    <p> La sede tiene un límite de {{ site.max_capacity }} plazas y {{ site.registrant_set.count }} se han registrado. </p>
+    {% endifequal %}
+
+    <h4>Software disponible</h4>
+
+    <p>
+    <ul>
+        {% for software in site.software.all %}
+        <li>{{ software.software }} {{ software.version }}</li>
+        {% endfor %}
+    </ul>
+    </p>
+
+    {% if not site.is_full %}
+    <p> <a href="register/">Registrarse</a> </p>
+    {% endif %}
+{% endif %}
+
+{% endblock %}
