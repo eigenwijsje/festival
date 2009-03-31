@@ -5,7 +5,7 @@ from models import Event, Site, Software
 
 def register(request, event_slug, site_slug):
     event = get_object_or_404(Event, slug=event_slug)
-    site = get_object_or_404(Site, slug=site_slug)
+    site = get_object_or_404(Site, event__slug=event_slug slug=site_slug)
 
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
@@ -13,7 +13,7 @@ def register(request, event_slug, site_slug):
             form.save()
 
             return render_to_response('installfest/registration_complete.html',
-                {'event': event})
+                {'event': event, 'site': site})
     else:
         form = RegistrationForm()
         form.fields['event'].queryset = Event.objects.filter(id=event.id)
@@ -23,9 +23,7 @@ def register(request, event_slug, site_slug):
         form.fields['software'].queryset = Software.objects.filter(site=site)
 
     return render_to_response('installfest/registration_form.html',
-        {'form': form,
-            'event': event,
-            'site': site})
+        {'form': form, 'event': event, 'site': site})
 
 def site_detail(request, event_slug, site_slug):
     site = get_object_or_404(Site, event__slug=event_slug, slug=site_slug)
